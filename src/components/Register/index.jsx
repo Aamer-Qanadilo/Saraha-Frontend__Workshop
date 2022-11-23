@@ -1,8 +1,72 @@
-import React from "react";
+import axios from "axios";
+import Joi from "joi";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 
 const Register = () => {
-  return <div>Register</div>;
+
+  let [user, setUser] = useState({
+    userName: '',
+    email: '',
+    password: '',
+    cpassword: ''
+  })
+
+  let getFormInfo = (e) => {
+    let myUsre = { ...user };    //Depth copy
+    myUsre[e.target.name] = e.target.value;     //value by tag name
+    setUser(myUsre);
+    
+  }
+
+  let [formMiddleware, setFormMiddleware] = useState([]);
+
+  let btnClick = async (e) => {
+    e.preventDefault();
+    let validateResult = validateForm();
+    setFormMiddleware(validateResult.error.details);
+    console.log(formMiddleware);
+  
+    let data = await axios.post('http://localhost:3003/api/v1/auth/signup',user)
+    console.log(data)
+  }
+
+  let validateForm = ()=>{
+    const schema = Joi.object({
+      userName: Joi.string().alphanum().min(6).max(20).required(),
+      email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+      password: Joi.string().min(6).max(20).required(),
+      cpassword: Joi.string().min(6).max(20).required(),
+  });
+  return schema.validate(user);
 };
 
-export default Register;
+
+  return (
+    <>
+    <div className='d-flex justify-content-center pt-4'>
+      {formMiddleware.map((error,index)=><div key={index} className='alert alert-danger w-50'>{error.message}</div>)}
+    </div>
+      <div className="container text-center my-5">
+        <div className="user my-3">
+          <i className="far fa-edit user-icon" />
+          <h4 className="login">Register</h4>
+        </div>
+        <div className="card p-5 w-50 m-auto">
+          <form onSubmit={btnClick} action="/handleLogin">
+            <input onChange={getFormInfo} className="form-control" placeholder="Enter your Name" type="text" name="userName" />
+            <input onChange={getFormInfo} className="form-control my-2 " placeholder="Enter your email" type="email" name="email" />
+            <input onChange={getFormInfo} className="form-control  " placeholder="Enter your Password" type="password" name="password" />
+            <input onChange={getFormInfo} className="form-control  my-2" placeholder="Password Confirmation" type="password" name="cpassword" />
+            <button type="submit" className="btn btn-default-outline my-4 w-100 rounded">Register</button>
+            <Link className="btn btn-default-outline" to="/login">Login</Link>
+          </form> 
+        </div>
+      </div>
+
+    </>
+  )
+};
+
+export default Register; 

@@ -4,7 +4,7 @@ import cookie from "react-cookies";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [loggedUser, setLoggedUser] = useState(cookie.load("user"));
+  const [loggedUser, setLoggedUser] = useState(cookie.load("token"));
 
   return (
     <UserContext.Provider value={{ loggedUser, setLoggedUser }}>

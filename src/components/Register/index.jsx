@@ -2,6 +2,7 @@ import axios from "axios";
 import Joi from "joi";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import styles from "./styles.module.css";
 
 
@@ -21,15 +22,28 @@ const Register = () => {
 
   let [formMiddleware, setFormMiddleware] = useState([]);
 
+ 
   let btnClick = async (e) => {
     e.preventDefault();
     let validateResult = validateForm();
-    setFormMiddleware(validateResult.error.details);
-    console.log(formMiddleware);
-  
-    let data = await axios.post('http://localhost:3003/api/v1/auth/signup',user)
-    console.log(data)
-  }
+    console.log(validateResult);
+    if (validateResult.error) {
+      setFormMiddleware(validateResult.error.details);
+      return;
+    }
+
+    let { data } = await axios.post(
+      "http://localhost:3000/api/v1/auth/signup",
+      user,
+    );
+    console.log(data);
+
+    if (data.message == "success") {
+      toast.success("Registered successfully, please Confirm your Email!");
+    } else {
+      toast.error(data.message);
+    }
+  };
 
   let validateForm = ()=>{
     const schema = Joi.object({

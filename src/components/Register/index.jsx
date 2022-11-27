@@ -2,7 +2,10 @@ import axios from "axios";
 import Joi from "joi";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import styles from "./styles.module.css";
+
 
 const Register = () => {
 
@@ -28,7 +31,8 @@ const Register = () => {
     console.log(validateResult)
     if(validateResult.error){
       setFormMiddleware(validateResult.error.details);
-      return;}
+      return;
+    }
     
       let { data } = await axios.post(
         "http://localhost:3000/api/v1/auth/signup",
@@ -36,13 +40,13 @@ const Register = () => {
       );
       console.log(data);
   
-      if (data.message == "success") {
+      if (data.message === "success") {
         toast.success("Registered successfully, please Confirm your Email!");
       } else {
         toast.error(data.message);
       }
     };
-  }
+  
 
   let validateForm = ()=>{
     const schema = Joi.object({

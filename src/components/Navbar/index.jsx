@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import cookie from "react-cookies";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { UserContext } from "../UserContext/UserProvider";
 import styles from "./styles.module.css";
 
 const Navbar = () => {
+  const { loggedUser, setLoggedUser } = useContext(UserContext);
+
   return (
-    <nav className="navbar navbar-expand-lg bg-custom navbar-dark bg-dark">
+    <nav
+      className={
+        styles.navContainer +
+        " navbar navbar-expand-lg bg-custom navbar-dark bg-dark"
+      }
+    >
       <div className="container">
-        <a className="navbar-brand" href="index.html">
+        <Link className="navbar-brand" to="/">
           <img src="/assets/images/logo300.png" width={54} alt />{" "}
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -20,19 +30,45 @@ const Navbar = () => {
         >
           Menu <span className="navbar-toggler-icon" />
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/register">
-                Register
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="login">
-                Login
-              </Link>
-            </li>
-          </ul>
+        <div
+          className={styles.navList + " collapse navbar-collapse"}
+          id="navbarSupportedContent"
+        >
+          {loggedUser ? (
+            <ul className={styles.navbarContent + " navbar-nav ml-auto"}>
+              <li className="nav-item">
+                <p>Welcome back, {loggedUser.name}.</p>
+              </li>
+              <li className="nav-item">
+                <a
+                  href=""
+                  onClick={(event) => {
+                    event.preventDefault();
+                    toast.success(
+                      `Hope to see you back soon, ${loggedUser.name}.`,
+                    );
+                    setLoggedUser(null);
+                    cookie.remove("token", { path: "/" });
+                  }}
+                >
+                  logout.
+                </a>
+              </li>
+            </ul>
+          ) : (
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/register">
+                  Register
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="login">
+                  Login
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </nav>

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "./components/Home";
 import Login from "./components/Login";
+import MainPage  from "./components/MainPage";
 import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
@@ -16,6 +17,7 @@ const PageRouter = () => {
       <Route element={<Layout />}>
         {loggedUser ? (
           <>
+            <Route path="mainPage" element={<MainPage />} />
             <Route path="*" element={<NotFound />} />
           </>
         ) : (

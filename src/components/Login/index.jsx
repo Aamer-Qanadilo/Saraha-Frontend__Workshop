@@ -64,7 +64,7 @@ const Login = () => {
 
   let Navigate = useNavigate();
   function goToHome() {
-    let path = "/home";
+    let path = "/mainPage";
     Navigate(path, { replace: true });
     // window.location.reload();
   }

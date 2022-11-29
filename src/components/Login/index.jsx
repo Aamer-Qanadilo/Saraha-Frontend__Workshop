@@ -109,7 +109,7 @@ const Login = () => {
                   I Forgot My Password
                 </a>
               </p>
-              <Link className="btn btn-default-outline" to="register">
+              <Link className="btn btn-default-outline" to="/register">
                 Register
               </Link>
             </form>

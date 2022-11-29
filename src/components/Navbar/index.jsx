@@ -58,6 +58,11 @@ const Navbar = () => {
           ) : (
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
+                <Link className="nav-link" to="/findUser">
+                  Find-User
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" to="/register">
                   Register
                 </Link>

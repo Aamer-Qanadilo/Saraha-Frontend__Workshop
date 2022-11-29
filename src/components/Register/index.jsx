@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./styles.module.css";
 
+
 const Register = () => {
   let [user, setUser] = useState({
     userName: "",
@@ -21,6 +22,7 @@ const Register = () => {
 
   let [formMiddleware, setFormMiddleware] = useState([]);
 
+ 
   let btnClick = async (e) => {
     e.preventDefault();
     let validateResult = validateForm();
@@ -43,7 +45,7 @@ const Register = () => {
     }
   };
 
-  let validateForm = () => {
+  let validateForm = ()=>{
     const schema = Joi.object({
       userName: Joi.string().min(6).max(20).required(),
       email: Joi.string()

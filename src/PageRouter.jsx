@@ -7,6 +7,7 @@ import MainPage from "./components/MainPage";
 import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
+import Massages from "./components/Massages";
 import { UserContext } from "./components/UserContext/UserProvider";
 import SendMessage from "./components/SendMessage";
 
@@ -19,6 +20,7 @@ const PageRouter = () => {
         {loggedUser ? (
           <>
             <Route index element={<MainPage showMessage={true} />} />
+            <Route path="Massages" element={<Massages />} />
           </>
         ) : (
           <>

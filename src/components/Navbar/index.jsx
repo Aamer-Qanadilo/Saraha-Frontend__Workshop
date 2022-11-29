@@ -17,7 +17,7 @@ const Navbar = () => {
     >
       <div className="container">
         <Link className="navbar-brand" to="/">
-          <img src="/assets/images/logo300.png" width={54} alt />{" "}
+          <img src="/assets/images/logo300.png" width={54} alt="" />{" "}
         </Link>
         <button
           className="navbar-toggler"
@@ -37,7 +37,9 @@ const Navbar = () => {
           {loggedUser ? (
             <ul className={styles.navbarContent + " navbar-nav ml-auto"}>
               <li className="nav-item">
-                <p>Welcome back, {loggedUser.name}.</p>
+              <Link className="nav-link" to="/Massages">
+                  Massages
+                </Link>
               </li>
               <li className="nav-item">
                 <a

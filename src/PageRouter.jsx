@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
+import Massages from "./components/Massages";
 import { UserContext } from "./components/UserContext/UserProvider";
 
 const PageRouter = () => {
@@ -17,6 +18,7 @@ const PageRouter = () => {
         {loggedUser ? (
           <>
             <Route path="*" element={<NotFound />} />
+            <Route path="Massages" element={<Massages />} />
           </>
         ) : (
           <>

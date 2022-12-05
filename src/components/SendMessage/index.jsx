@@ -1,9 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { UserContext } from "../UserContext/UserProvider";
 import copy from "copy-to-clipboard";
 import { toast } from "react-toastify";
 import axios from "axios";
+
+export const shareProfile = (event, url) => {
+  event.preventDefault();
+  copy(url);
+  toast.success("Copied to clipboard!", { autoClose: 1500 });
+};
 
 const SendMessage = () => {
   const params = useParams();
@@ -60,12 +66,7 @@ const SendMessage = () => {
             data-toggle="modal"
             data-target="#share"
             className="btn btn-default-outline share "
-            onClick={(e) => {
-              e.preventDefault();
-              //   window.alert(window.location);
-              copy(window.location);
-              toast.success("Copied to clipboard!", { autoClose: 1500 });
-            }}
+            onClick={(e) => shareProfile(e, window.location)}
           >
             <i class="fas fa-share-alt" aria-hidden="true"></i> Share Profile
           </button>

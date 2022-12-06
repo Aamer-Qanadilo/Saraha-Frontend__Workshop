@@ -11,6 +11,7 @@ import Massages from "./components/Massages";
 import VerifyEmail from './components/Register/VerifyEmail'; 
 import { UserContext } from "./components/UserContext/UserProvider";
 import SendMessage from "./components/SendMessage";
+import SentCode from './components/SentCode/SentCode';
 
 const PageRouter = () => {
   const { loggedUser } = useContext(UserContext);
@@ -30,6 +31,7 @@ const PageRouter = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="/verifyEmail" element={<VerifyEmail/>}/>
+            <Route path="/SentCode" element={<SentCode/>}/>
           </>
         )}
         <Route path="/messageUser/:id" element={<SendMessage />} />

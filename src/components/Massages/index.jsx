@@ -4,6 +4,8 @@ import cookie from "react-cookies";
 import { toast } from "react-toastify";
 import { shareProfile } from "../SendMessage";
 import { UserContext } from "../UserContext/UserProvider";
+import "./style.css";
+
 
 const Massages = () => {
   let [messages, setMessages] = useState([]);
@@ -160,7 +162,7 @@ const Massages = () => {
         <div className="container text-center my-5 text-center">
           <div className="row">
             <div className="col-md-12">
-              <div className="card py-5">
+              <div className=" card ">
                 {/* <button
                   type="submit"
                   onClick={deleteMassage}
@@ -168,18 +170,16 @@ const Massages = () => {
                 >
                   Delete
                 </button> */}
+                <h2 className="masage">Massages</h2>
                 {messages.length ? (
                   <table className="table table-striped">
                     <thead>
-                      <tr>
-                        <th scope="col-11">Massage</th>
-                        <th scope="col-1"></th>
-                      </tr>
+                  
                     </thead>
                     <tbody>
                       {messages.map((message, index) => (
-                        <tr>
-                          <td>{message.text}</td>
+                        <tr className="text-m">
+                          <td >{message.text}</td>
                           <td>
                             <button
                               type="submit"

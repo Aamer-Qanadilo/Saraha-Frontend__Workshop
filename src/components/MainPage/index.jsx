@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { UserContext } from "../UserContext/UserProvider";
+import styles from './styles.module.css';
 
 export default function MainPage({ showMessage = false }) {
   let navigat = useNavigate();
@@ -58,30 +59,26 @@ export default function MainPage({ showMessage = false }) {
   }
 
   return (
-    <div className="container text-center my-5">
+  
+    <div className="container  my-5">
       {showMessage && (
-        <h4>
-          Sarahah allows you to receive constructive feedback from your friends
-          and co-workers
-          <br />
-          <br />
-          <br />
-          Find the people you want to Send to
+        <h4 className={styles.headerText}>
+          Find people you want to Send to
         </h4>
       )}
       <div className="d-flex justify-content-center row mt-3">
         <input
           onChange={list}
-          className=" form-control mt-3 me-2 w-75"
+          className=" form-control mt-3 me-2 w-50"
           type="search"
           placeholder="Search...."
           aria-label="Search"
         />
 
-        <div class="list-group w-75 mt-3">
-          <table class="table ">
+        <div className="list-group w-75 mt-3">
+          <table className="table ">
             <thead>
-              <tr>
+              <tr className={styles.listColor1}>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
@@ -92,7 +89,7 @@ export default function MainPage({ showMessage = false }) {
 
               {result.map((r,index) => {
                 return (
-                  <tr >
+                  <tr className={styles.listColor}>
                     <th scope="row">{index}</th>
                     <td>{r.name}</td>
                     <td>{r.email}</td>
@@ -105,6 +102,7 @@ export default function MainPage({ showMessage = false }) {
         </div>
       </div>
     </div>
+    
   );
 }
 

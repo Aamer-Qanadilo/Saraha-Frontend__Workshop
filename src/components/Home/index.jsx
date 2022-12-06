@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <React.Fragment>
       <div className="container text-center my-5">
-        <h4>
+        <h4 className={styles.mainH}>
           Sarahah allows you to receive constructive feedback from your friends
           and co-workers
         </h4>

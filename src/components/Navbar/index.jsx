@@ -8,6 +8,15 @@ import styles from "./styles.module.css";
 const Navbar = () => {
   const { loggedUser, setLoggedUser } = useContext(UserContext);
 
+  let logOut = (e)=>{
+    e.preventDefault();
+    toast.success(
+      `Hope to see you back soon, ${loggedUser.name}.`,
+    );
+    setLoggedUser(null);
+    cookie.remove("token", { path: "/" });
+  }
+
   return (
     <nav
       className={
@@ -42,19 +51,9 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <a
-                  href=""
-                  onClick={(event) => {
-                    event.preventDefault();
-                    toast.success(
-                      `Hope to see you back soon, ${loggedUser.name}.`,
-                    );
-                    setLoggedUser(null);
-                    cookie.remove("token", { path: "/" });
-                  }}
-                >
-                  logout.
-                </a>
+              <Link onClick={logOut} className="nav-link" to="/">
+                  Logout
+                </Link>
               </li>
             </ul>
           ) : (

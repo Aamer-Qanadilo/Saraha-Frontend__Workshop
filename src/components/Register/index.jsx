@@ -3,8 +3,7 @@ import Joi from "joi";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import VerifyEmail from './VerifyEmail';
-import styles from "./styles.module.css";
+//import styles from "./styles.module.css";
 
 
 const Register = () => {
@@ -39,9 +38,7 @@ const Register = () => {
     );
     console.log(data);
 
-    if (data.message == "success") {
-      //toast.success("Registered successfully, please Confirm your Email!");
-      //VerifyEmail();
+    if (data.message === "success") {
       goToValidat();
 
     } else {

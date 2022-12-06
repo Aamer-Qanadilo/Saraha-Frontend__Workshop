@@ -18,6 +18,8 @@ export default function MainPage({ showMessage = false }) {
       r.push({
         name: key.userName,
         id: key._id,
+        email:key.email
+
       });
     });
     setResult(r);
@@ -32,6 +34,7 @@ export default function MainPage({ showMessage = false }) {
           r.push({
             name: key.userName,
             id: key._id,
+            email:key.email
           });
         }
       });
@@ -40,6 +43,7 @@ export default function MainPage({ showMessage = false }) {
         r.push({
           name: key.userName,
           id: key._id,
+          email: key.email
         });
       });
     }
@@ -65,28 +69,42 @@ export default function MainPage({ showMessage = false }) {
           Find the people you want to Send to
         </h4>
       )}
-      <div className="d-flex justify-content-center row">
+      <div className="d-flex justify-content-center row mt-3">
         <input
           onChange={list}
-          className=" form-control me-2 w-75"
+          className=" form-control mt-3 me-2 w-75"
           type="search"
           placeholder="Search...."
           aria-label="Search"
         />
 
         <div class="list-group w-75 mt-3">
-          {result.map((r) => {
-            return (
-              <p
-                onClick={() => goToUser(r.id)}
-                className="list-group-item list-group-item-action"
-              >
-                {r.name}
-              </p>
-            );
-          })}
+          <table class="table ">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {result.map((r,index) => {
+                return (
+                  <tr >
+                    <th scope="row">{index}</th>
+                    <td>{r.name}</td>
+                    <td>{r.email}</td>
+                    <td><button type="button" onClick = {() => goToUser(r.id)} class="btn btn-outline-info">Send Email</button></td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   );
 }
+

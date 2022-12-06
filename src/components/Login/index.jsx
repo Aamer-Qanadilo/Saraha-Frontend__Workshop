@@ -105,9 +105,9 @@ const Login = () => {
                 Login
               </button>
               <p>
-                <a className="text-muted forgot btn" href="">
+                <Link className="text-muted forgot btn" to="/SentCode">
                   I Forgot My Password
-                </a>
+                </Link>
               </p>
               <Link className="btn btn-default-outline" to="/register">
                 Register

@@ -1,8 +1,9 @@
 import axios from "axios";
 import Joi from "joi";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import VerifyEmail from './VerifyEmail';
 import styles from "./styles.module.css";
 
 
@@ -39,10 +40,19 @@ const Register = () => {
     console.log(data);
 
     if (data.message == "success") {
-      toast.success("Registered successfully, please Confirm your Email!");
+      //toast.success("Registered successfully, please Confirm your Email!");
+      //VerifyEmail();
+      goToValidat();
+
     } else {
       toast.error(data.message);
     }
+  };
+
+  let Navigate = useNavigate();
+  let goToValidat = ()=>{
+  let path = "/VerifyEmail";
+  Navigate(path, { replace: true });
   };
 
   let validateForm = ()=>{

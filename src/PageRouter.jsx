@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
 import Massages from "./components/Massages";
+import VerifyEmail from './components/Register/VerifyEmail'; 
 import { UserContext } from "./components/UserContext/UserProvider";
 import SendMessage from "./components/SendMessage";
 
@@ -28,6 +29,7 @@ const PageRouter = () => {
             <Route path="/findUser" element={<MainPage showMessage={true} />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="/verifyEmail" element={<VerifyEmail/>}/>
           </>
         )}
         <Route path="/messageUser/:id" element={<SendMessage />} />

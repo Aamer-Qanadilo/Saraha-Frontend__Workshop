@@ -27,9 +27,6 @@ const Massages = () => {
   const deleteMessage = async (e, index) => {
     e.preventDefault();
 
-    const prevMessages = messages;
-    setMessages((prev) => prev.splice(index, 1));
-
     let getToken = cookie.load("token");
     const AuthStr = "tariq__".concat(getToken);
 
@@ -41,9 +38,9 @@ const Massages = () => {
 
     if (data.message !== "success") {
       toast.error("Message wasn't deleted, something went wrong!");
-      setMessages(prevMessages);
+      
     } else toast.success("Message Deleted Successfully!");
-
+        getMessage();
     console.log(data);
   };
 
@@ -53,7 +50,7 @@ const Massages = () => {
         <div className="container text-center py-5 my-5 text-center">
           <div className="card pt-5">
             <a href data-toggle="modal" data-target="#profile">
-              <img src="/assets/images/avatar.png" className="avatar " alt />
+              <img src="/assets/images/avatar.png" className="avatar " alt='' />
             </a>
             <h3 className="py-2">{loggedUser.name}</h3>
             <button

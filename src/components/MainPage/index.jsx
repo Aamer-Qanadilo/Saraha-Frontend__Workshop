@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { UserContext } from "../UserContext/UserProvider";
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 export default function MainPage({ showMessage = false }) {
   let navigat = useNavigate();
@@ -19,8 +19,7 @@ export default function MainPage({ showMessage = false }) {
       r.push({
         name: key.userName,
         id: key._id,
-        email:key.email
-
+        email: key.email,
       });
     });
     setResult(r);
@@ -35,7 +34,7 @@ export default function MainPage({ showMessage = false }) {
           r.push({
             name: key.userName,
             id: key._id,
-            email:key.email
+            email: key.email,
           });
         }
       });
@@ -44,7 +43,7 @@ export default function MainPage({ showMessage = false }) {
         r.push({
           name: key.userName,
           id: key._id,
-          email: key.email
+          email: key.email,
         });
       });
     }
@@ -59,12 +58,9 @@ export default function MainPage({ showMessage = false }) {
   }
 
   return (
-  
     <div className="container  my-5">
       {showMessage && (
-        <h4 className={styles.headerText}>
-          Find people you want to Send to
-        </h4>
+        <h4 className={styles.headerText}>Find people you want to Send to</h4>
       )}
       <div className="d-flex justify-content-center row mt-3">
         <input
@@ -76,33 +72,46 @@ export default function MainPage({ showMessage = false }) {
         />
 
         <div className="list-group w-75 mt-3">
-          <table className="table ">
-            <thead>
-              <tr className={styles.listColor1}>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-
-              {result.map((r,index) => {
-                return (
-                  <tr className={styles.listColor}>
-                    <th scope="row">{index}</th>
-                    <td>{r.name}</td>
-                    <td>{r.email}</td>
-                    <td><button type="button" onClick = {() => goToUser(r.id)} class="btn btn-outline-info">Send Email</button></td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          {result.length ? (
+            <table className="table text-center">
+              <thead>
+                <tr className={styles.listColor1}>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.map((r, index) => {
+                  return (
+                    <tr className={styles.listColor}>
+                      <td scope="row" className="">
+                        {index}
+                      </td>
+                      <td className="text-center">{r.name}</td>
+                      <td className="text-end">
+                        <button
+                          type="button"
+                          onClick={() => goToUser(r.id)}
+                          class="btn btn-outline-success"
+                        >
+                          Message <i className="far fa-paper-plane" />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <>
+              <div className={styles.userNotFound}>
+                <img src="/assets/gifs/output-onlinegiftools.gif" alt="" />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
-    
   );
 }
-

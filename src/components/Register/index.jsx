@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 //import styles from "./styles.module.css";
 
-
 const Register = () => {
   let [user, setUser] = useState({
     userName: "",
@@ -22,7 +21,6 @@ const Register = () => {
 
   let [formMiddleware, setFormMiddleware] = useState([]);
 
- 
   let btnClick = async (e) => {
     e.preventDefault();
     let validateResult = validateForm();
@@ -40,19 +38,18 @@ const Register = () => {
 
     if (data.message === "success") {
       goToValidat();
-
     } else {
       toast.error(data.message);
     }
   };
 
   let Navigate = useNavigate();
-  let goToValidat = ()=>{
-  let path = "/VerifyEmail";
-  Navigate(path, { replace: true });
+  let goToValidat = () => {
+    let path = "/VerifyEmail";
+    Navigate(path, { replace: true });
   };
 
-  let validateForm = ()=>{
+  let validateForm = () => {
     const schema = Joi.object({
       userName: Joi.string().min(6).max(20).required(),
       email: Joi.string()
@@ -75,7 +72,7 @@ const Register = () => {
     <>
       <div className="d-flex justify-content-center pt-4">
         {formMiddleware?.map((error, index) => (
-          <div key={index} className="alert alert-danger w-50">
+          <div key={index} className="alert alert-danger error-message w-50">
             {error.message}
           </div>
         ))}

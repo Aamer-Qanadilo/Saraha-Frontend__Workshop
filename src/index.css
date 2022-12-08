@@ -34,7 +34,8 @@ body {
 
 .user-icon {
   font-size: 60px;
-  color: #c0c0c0;
+  color: #0da39c;
+  /* color: #c0c0c0; */
 }
 
 .avatar {
@@ -49,3 +50,18 @@ body {
 .share {
   margin: 0px auto 10px auto;
 }
+
+.error-message {
+  text-transform: capitalize;
+}
+
+.button-onClick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* .btn-container > * {
+  margin: 0 10px;
+} */

@@ -4,6 +4,7 @@ import { UserContext } from "../UserContext/UserProvider";
 import copy from "copy-to-clipboard";
 import { toast } from "react-toastify";
 import axios from "axios";
+import styles from "./styles.module.css";
 
 export const shareProfile = (event, url) => {
   event.preventDefault();
@@ -44,17 +45,17 @@ const SendMessage = () => {
             <div className="container w-50 m-auto">
               <form action method="post">
                 <textarea
-                  className="form-control"
+                  className={"form-control px-3 py-2 " + styles.sendMessageBox}
                   name
                   id
                   cols={10}
                   rows={9}
-                  placeholder="You cannot send a Sarahah to yourself, share your profile with your friends :)"
+                  placeholder="What's on your mind?"
                   value={text}
                   onChange={(event) => setText(event.target.value)}
                 />
                 <button
-                  className="btn btn-outline-info mt-3"
+                  className="btn btn-outline-success btn-container mt-3"
                   onClick={submitMessage}
                 >
                   <i className="far fa-paper-plane" /> Send

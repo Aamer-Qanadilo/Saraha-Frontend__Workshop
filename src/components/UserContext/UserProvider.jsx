@@ -2,11 +2,13 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import React, { createContext, useEffect, useState } from "react";
 import cookie from "react-cookies";
+import Loader from "../Loader";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [loggedUser, setLoggedUser] = useState("");
+  const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
 
   async function getUsers() {
@@ -26,9 +28,15 @@ export const UserProvider = ({ children }) => {
     getUsers();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, [users]);
+
   return (
     <UserContext.Provider value={{ loggedUser, setLoggedUser, users }}>
-      {children}
+      {loading ? <Loader /> : children}
     </UserContext.Provider>
   );
 };

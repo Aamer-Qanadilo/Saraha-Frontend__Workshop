@@ -6,7 +6,6 @@ import { shareProfile } from "../SendMessage";
 import { UserContext } from "../UserContext/UserProvider";
 import "./style.css";
 
-
 const Massages = () => {
   let [messages, setMessages] = useState([]);
   const { loggedUser } = useContext(UserContext);
@@ -40,9 +39,8 @@ const Massages = () => {
 
     if (data.message !== "success") {
       toast.error("Message wasn't deleted, something went wrong!");
-      
     } else toast.success("Message Deleted Successfully!");
-        getMessage();
+    getMessage();
     console.log(data);
   };
 
@@ -52,7 +50,7 @@ const Massages = () => {
         <div className="container text-center py-5 my-5 text-center">
           <div className="card pt-5">
             <a href data-toggle="modal" data-target="#profile">
-              <img src="/assets/images/avatar.png" className="avatar " alt='' />
+              <img src="/assets/images/avatar.png" className="avatar " alt="" />
             </a>
             <h3 className="py-2">{loggedUser.name}</h3>
             <button
@@ -159,27 +157,45 @@ const Massages = () => {
         </div> */}
         {/* /modal */}
         {/* =================messages=================== */}
-        <div className="container text-center my-5 text-center">
+        {/* <div className="container text-center my-5 text-center">
           <div className="row">
             <div className="col-md-12">
-              <div className=" card ">
-                {/* <button
+              <div className=" card "> */}
+        {/* <button
                   type="submit"
                   onClick={deleteMassage}
                   className="btn btn-outline-danger"
                 >
                   Delete
                 </button> */}
-                <h2 className="masage">Massages</h2>
-                {messages.length ? (
-                  <table className="table table-striped">
-                    <thead>
-                  
-                    </thead>
+        <h2 className="masage">
+          Messages <i className="fa-regular fa-envelope"></i>
+        </h2>
+        <div className="messagesContainer">
+          {messages.length ? (
+            <>
+              {messages.map((message, index) => {
+                return (
+                  <div className="messageBox">
+                    <p className="messageText">{message.text}</p>
+                    <button
+                      type="submit"
+                      onClick={(e) => deleteMessage(e, index)}
+                      className="btn btn-outline-danger"
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            /*<table className="table table-striped">
+                    <thead></thead>
                     <tbody>
                       {messages.map((message, index) => (
                         <tr className="text-m">
-                          <td >{message.text}</td>
+                          <td>{message.text}</td>
                           <td>
                             <button
                               type="submit"
@@ -192,15 +208,15 @@ const Massages = () => {
                         </tr>
                       ))}
                     </tbody>
-                  </table>
-                ) : (
-                  <h4>You don't have any messages...</h4>
-                )}
-              </div>
-            </div>
-          </div>
+                  </table> */
+            <h4>You don't have any messages...</h4>
+          )}
         </div>
       </div>
+      {/* </div>
+          </div>
+        </div>
+      </div> */}
     </>
   );
 };

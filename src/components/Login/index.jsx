@@ -9,13 +9,14 @@ import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
 
 const Login = () => {
-  let [user, setUser] = useState({
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
   const { setLoggedUser } = useContext(UserContext);
 
-  let [errorList, setErrorList] = useState([]);
+  const [errorList, setErrorList] = useState([]);
+  const Navigate = useNavigate();
 
   async function submitFormData(e) {
     e.preventDefault();
@@ -30,6 +31,11 @@ const Login = () => {
         user,
       );
       if (data.message != "success") {
+        if (data.message == "plz confirm your email") {
+          let path = "/VerifyEmail";
+          Navigate(path, { replace: true });
+          return;
+        }
         const e = {
           message: `${data.message}`,
         };
@@ -62,7 +68,6 @@ const Login = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   }
 
-  let Navigate = useNavigate();
   function goToHome() {
     let path = "/";
     Navigate(path, { replace: true });
@@ -79,7 +84,7 @@ const Login = () => {
           </div>
           <div className="card p-5 w-50 m-auto">
             {errorList.map((error, index) => (
-              <div key={index} className="alert alert-danger">
+              <div key={index} className="alert alert-danger error-message">
                 {error.message}
               </div>
             ))}

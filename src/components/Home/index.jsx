@@ -12,10 +12,16 @@ const Home = () => {
           and co-workers
         </h4>
         <div className="buttons d-flex justify-content-center align-items-center  flex-column">
-          <Link to="/login" className="btn btn-default-outline my-4">
+          <Link
+            to="/login"
+            className={"btn btn-default-outline my-4 " + styles.mainBtn}
+          >
             <i className="fas fa-user" /> Login
           </Link>
-          <Link to="/register" className="btn btn-default-outline">
+          <Link
+            to="/register"
+            className={"btn btn-default-outline " + styles.mainBtn}
+          >
             <i className="far fa-edit" /> Register
           </Link>
         </div>

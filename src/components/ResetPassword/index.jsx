@@ -1,9 +1,11 @@
 import axios from "axios";
 import Joi from "joi";
 import React, { useState } from "react";
+import { useContext } from "react";
 import cookie from "react-cookies";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserContext } from "../UserContext/UserProvider";
 import styles from "./styles.module.css";
 
 const ResetPassword = () => {
@@ -11,6 +13,7 @@ const ResetPassword = () => {
   const [email, setEmail] = useState(cookie.load("email"));
   const [inputField, setInputField] = useState("");
   const [errorList, setErrorList] = useState([]);
+  const { setLoading } = useContext(UserContext);
   const navigator = useNavigate();
 
   const schema = Joi.object({
@@ -36,6 +39,7 @@ const ResetPassword = () => {
     e.preventDefault();
     if (resetCode) {
       console.log(email.email);
+      setLoading(true);
       const result = await axios.patch(
         "http://localhost:3000/api/v1/auth/forgetpassword",
         {
@@ -44,6 +48,7 @@ const ResetPassword = () => {
           password: inputField,
         },
       );
+      setLoading(false);
       cookie.remove("email");
       if (result.data.message === "success") {
         toast.success("Changed successfully!");

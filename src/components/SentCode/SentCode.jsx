@@ -4,8 +4,11 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import cookie from "react-cookies";
+import { useContext } from "react";
+import { UserContext } from "../UserContext/UserProvider";
 
 export default function SentCode() {
+  const { setLoading } = useContext(UserContext);
   const [submitted, setSubmitted] = useState(false);
   let [email, setEmail] = useState({
     email: "",

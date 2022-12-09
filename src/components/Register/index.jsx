@@ -1,8 +1,11 @@
 import axios from "axios";
 import Joi from "joi";
 import React, { useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserContext } from "../UserContext/UserProvider";
+import styles from "./styles.module.css";
 //import styles from "./styles.module.css";
 
 const Register = () => {
@@ -12,6 +15,10 @@ const Register = () => {
     password: "",
     cpassword: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
+  const { setLoading } = useContext(UserContext);
 
   let getFormInfo = (e) => {
     let myUser = { ...user }; //Depth copy
@@ -29,18 +36,19 @@ const Register = () => {
       setFormMiddleware(validateResult.error.details);
       return;
     }
+    setLoading(true);
 
     let { data } = await axios.post(
       "http://localhost:3000/api/v1/auth/signup",
       user,
     );
-    console.log(data);
 
     if (data.message === "success") {
       goToValidat();
     } else {
       toast.error(data.message);
     }
+    setLoading(false);
   };
 
   let Navigate = useNavigate();
@@ -98,20 +106,34 @@ const Register = () => {
               type="email"
               name="email"
             />
-            <input
-              onChange={getFormInfo}
-              className="form-control  "
-              placeholder="Enter your Password"
-              type="password"
-              name="password"
-            />
-            <input
-              onChange={getFormInfo}
-              className="form-control  my-2"
-              placeholder="Password Confirmation"
-              type="password"
-              name="cpassword"
-            />
+            <div className={styles.FormInputContainer}>
+              <input
+                onChange={getFormInfo}
+                className="form-control  "
+                placeholder="Enter your Password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+              />
+              <i
+                onClick={() => setShowPassword(!showPassword)}
+                className={`fa-solid fa-eye` + (showPassword ? "-slash" : "")}
+              ></i>
+            </div>
+            <div className={styles.FormInputContainer}>
+              <input
+                onChange={getFormInfo}
+                className="form-control  my-2"
+                placeholder="Password Confirmation"
+                type={showPasswordConfirm ? "text" : "password"}
+                name="cpassword"
+              />
+              <i
+                onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
+                className={
+                  `fa-solid fa-eye` + (showPasswordConfirm ? "-slash" : "")
+                }
+              ></i>
+            </div>
             <button
               type="submit"
               className="btn btn-default-outline my-4 w-100 rounded"

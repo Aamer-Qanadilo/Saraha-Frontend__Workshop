@@ -14,7 +14,7 @@ export const shareProfile = (event, url) => {
 
 const SendMessage = () => {
   const params = useParams();
-  const { users } = useContext(UserContext);
+  const { setLoading, users } = useContext(UserContext);
   const [user, setUser] = useState(null);
   const [text, setText] = useState("");
 
@@ -27,9 +27,11 @@ const SendMessage = () => {
 
   const submitMessage = async (e) => {
     e.preventDefault();
+    setLoading(true);
     await axios.post(`http://localhost:3000/api/v1/message/${params.id}`, {
       text,
     });
+    setLoading(false);
     setText("");
     toast.success("Message sent successfully!", { autoClose: 2500 });
   };

@@ -2,18 +2,19 @@ import axios from "axios";
 import Joi from "joi";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./styles.module.css";
 import cookie from "react-cookies";
 import { UserContext } from "../UserContext/UserProvider";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
+import styles from "./styles.module.css";
 
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const { setLoggedUser } = useContext(UserContext);
+  const { setLoading, setLoggedUser } = useContext(UserContext);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [errorList, setErrorList] = useState([]);
   const Navigate = useNavigate();
@@ -26,10 +27,12 @@ const Login = () => {
       setErrorList(validateResult.error.details);
       return;
     } else {
+      setLoading(true);
       let { data } = await axios.post(
         "http://localhost:3000/api/v1/auth/signIn",
         user,
       );
+      setLoading(false);
       if (data.message != "success") {
         if (data.message == "plz confirm your email") {
           let path = "/VerifyEmail";
@@ -96,13 +99,19 @@ const Login = () => {
                 type="text"
                 name="email"
               />
-              <input
-                onChange={getFormValue}
-                className="form-control my-4 "
-                placeholder="Enter your Password"
-                type="text"
-                name="password"
-              />
+              <div className={styles.FormInputContainer}>
+                <input
+                  onChange={getFormValue}
+                  className="form-control my-4 "
+                  placeholder="Enter your Password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                />
+                <i
+                  onClick={() => setShowPassword(!showPassword)}
+                  className={`fa-solid fa-eye` + (showPassword ? "-slash" : "")}
+                ></i>
+              </div>
               <button
                 className="btn btn-default-outline my-4 w-100 rounded"
                 type="submit"
